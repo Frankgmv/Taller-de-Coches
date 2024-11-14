@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Listado de Coches</title>
@@ -9,6 +10,43 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+        }
+
+
+        /* Estilos para la barra de navegación */
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            background-color: #45a049;
+            color: white;
+        }
+
+        /* Para el diseño responsive en dispositivos pequeños */
+        @media screen and (max-width: 600px) {
+            .navbar a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+
+        /* Agregar margen superior */
+        .content {
+            margin-top: 20px;
         }
 
         .container {
@@ -41,7 +79,8 @@
             margin-top: 20px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
             text-align: left;
             border: 1px solid #ddd;
@@ -84,51 +123,65 @@
         }
     </style>
 </head>
+
 <body>
-
-<div class="container">
-    <h1>Listado de Coches</h1>
-
-    <a class="new" href="/coches/create">Crear Nuevo Coche</a>
-
-    <!-- Mostrar la tabla solo si hay coches -->
-    <div th:if="${coches != null && !coches.isEmpty()}">
-        <table>
-            <thead>
-            <tr>
-                <th>Matrícula</th>
-                <th>Marca</th>
-                <th>Descripción</th>
-                <th>Fecha de Entrada</th>
-                <th>Estado</th>
-                <th>Propietario</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Iteración sobre la lista de coches -->
-            <tr th:each="coche : ${coches}">
-                <td th:text="${coche.matricula}">Matrícula</td>
-                <td th:text="${coche.marca}">Marca</td>
-                <td th:text="${coche.descripcion}">Descripción</td>
-                <td th:text="${#dates.format(coche.fechaEntrada, 'yyyy-MM-dd')}">Fecha de Entrada</td>
-                <td th:text="${coche.estado}">Estado</td>
-                <td th:if="coche.owner.nombre != null" th:text="${coche.owner.nombre}">Propietario</td>
-                <td class="actions">
-                    <!-- Botones de acción -->
-                    <a th:href="@{/coches/edit/{id}(id=${coche.id})}" class="btn">Editar</a>
-                    <a href="#" class="btn btn-danger" th:href="@{/coches/delete/{id}(id=${coche.id})}" onclick="return confirm('Deseas eliminarlo?')">Eliminar</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- Barra de Navegación -->
+    <div class="navbar">
+        <a href="/owners" th:text="'Propietarios'">Propietarios</a>
+        <a href="/coches" th:text="'Coches'">Coches</a>
+        <a href="/detalles" th:text="'Detalles de Mantenimiento'">Detalles de Mantenimiento</a>
+        <a href="/repuestos" th:text="'Repuestos'">Repuestos</a>
+        <a href="/facturas" th:text="'Facturas'">Facturas</a>
     </div>
 
-    <!-- Mensaje si no hay coches -->
-    <div th:if="${coches == null || coches.isEmpty()}">
-        <p>No hay coches registrados.</p>
+    <!-- Contenido principal de la página -->
+    <div class="content">
+        <div class="container">
+            <h1>Listado de Coches</h1>
+
+            <a class="new" href="/coches/create">Crear Nuevo Coche</a>
+
+            <!-- Mostrar la tabla solo si hay coches -->
+            <div th:if="${coches != null && !coches.isEmpty()}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Matrícula</th>
+                            <th>Marca</th>
+                            <th>Descripción</th>
+                            <th>Fecha de Entrada</th>
+                            <th>Estado</th>
+                            <th>Propietario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iteración sobre la lista de coches -->
+                        <tr th:each="coche : ${coches}">
+                            <td th:text="${coche.matricula}">Matrícula</td>
+                            <td th:text="${coche.marca}">Marca</td>
+                            <td th:text="${coche.descripcion}">Descripción</td>
+                            <td th:text="${#dates.format(coche.fechaEntrada, 'yyyy-MM-dd')}">Fecha de Entrada</td>
+                            <td th:text="${coche.estado}">Estado</td>
+                            <td th:if="coche.owner.nombre != null" th:text="${coche.owner.nombre}">Propietario</td>
+                            <td class="actions">
+                                <!-- Botones de acción -->
+                                <a th:href="@{/coches/edit/{id}(id=${coche.id})}" class="btn">Editar</a>
+                                <a href="#" class="btn btn-danger" th:href="@{/coches/delete/{id}(id=${coche.id})}"
+                                    onclick="return confirm('Deseas eliminarlo?')">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mensaje si no hay coches -->
+            <div th:if="${coches == null || coches.isEmpty()}">
+                <p>No hay coches registrados.</p>
+            </div>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

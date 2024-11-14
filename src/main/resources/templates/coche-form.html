@@ -1,124 +1,177 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <title>Formulario de Coche</title>
   <style>
     body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+
+    /* Estilos para la barra de navegación */
+    .navbar {
+      background-color: #4CAF50;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .navbar a:hover {
+      background-color: #45a049;
+      color: white;
+    }
+
+    /* Para el diseño responsive en dispositivos pequeños */
+    @media screen and (max-width: 600px) {
+      .navbar a {
+        float: none;
+        display: block;
+        text-align: left;
+      }
+    }
+
+    /* Agregar margen superior */
+    .content {
+      margin-top: 20px;
     }
 
     .container {
-        width: 60%;
-        margin: 50px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 60%;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
-        text-align: center;
-        color: #333;
+      text-align: center;
+      color: #333;
     }
 
     label {
-        display: block;
-        margin-top: 10px;
-        font-weight: bold;
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
     }
 
-    input[type="text"], input[type="date"], select {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
     }
 
     textarea {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        height: 100px;
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      height: 100px;
     }
 
     input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
     }
 
     input[type="submit"]:hover {
-        background-color: #45a049;
+      background-color: #45a049;
     }
 
     .back-btn {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        background-color: #ccc;
-        color: black;
-        text-decoration: none;
-        border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ccc;
+      color: black;
+      text-decoration: none;
+      border-radius: 5px;
     }
 
     .back-btn:hover {
-        background-color: #bbb;
+      background-color: #bbb;
     }
-
   </style>
 </head>
+
 <body>
+  <!-- Barra de Navegación -->
+  <div class="navbar">
+    <a href="/owners" th:text="'Propietarios'">Propietarios</a>
+    <a href="/coches" th:text="'Coches'">Coches</a>
+    <a href="/detalles" th:text="'Detalles de Mantenimiento'">Detalles de Mantenimiento</a>
+    <a href="/repuestos" th:text="'Repuestos'">Repuestos</a>
+    <a href="/facturas" th:text="'Facturas'">Facturas</a>
+  </div>
 
-<div class="container">
-  <h1 th:text="${coche.id == null ? 'Crear Coche' : 'Editar Coche'}"></h1>
+  <!-- Contenido principal de la página -->
+  <div class="content">
+    <div class="container">
+      <h1 th:text="${coche.id == null ? 'Crear Coche' : 'Editar Coche'}"></h1>
 
-  <form th:action="@{/coches/save}" th:object="${coche}" method="POST">
-    <!-- Campo de ID oculto para edición -->
-    <input type="hidden" th:field="*{id}" />
+      <form th:action="@{/coches/save}" th:object="${coche}" method="POST">
+        <!-- Campo de ID oculto para edición -->
+        <input type="hidden" th:field="*{id}" />
 
-    <label for="matricula">Matrícula</label>
-    <input type="text" id="matricula" th:field="*{matricula}" required />
+        <label for="matricula">Matrícula</label>
+        <input type="text" id="matricula" th:field="*{matricula}" required />
 
-    <label for="marca">Marca</label>
-    <input type="text" id="marca" th:field="*{marca}" required />
+        <label for="marca">Marca</label>
+        <input type="text" id="marca" th:field="*{marca}" required />
 
-    <label for="descripcion">Descripción</label>
-    <textarea id="descripcion" th:field="*{descripcion}" required></textarea>
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" th:field="*{descripcion}" required></textarea>
 
-    <label for="fechaEntrada">Fecha de Entrada</label>
-    <input type="date" id="fechaEntrada" th:field="*{fechaEntrada}" required />
+        <label for="fechaEntrada">Fecha de Entrada</label>
+        <input type="date" id="fechaEntrada" th:field="*{fechaEntrada}" required />
 
-    <label for="estado">Estado</label>
-    <select id="estado" th:field="*{estado}" required>
-      <option value="" selected>Selecciona un estado</option>
-      <option th:each="std : ${estados}" th:value="${std}" th:text="${std}"></option>
-    </select>
+        <label for="estado">Estado</label>
+        <select id="estado" th:field="*{estado}" required>
+          <option value="" selected>Selecciona un estado</option>
+          <option th:each="std : ${estados}" th:value="${std}" th:text="${std}"></option>
+        </select>
 
-    <label for="owner">Propietario</label>
-    <select id="owner" th:field="*{owner.id}" required>
-      <option value="" selected>Selecciona un propietario</option>
-      <option th:each="owner : ${owners}" th:value="${owner.id}" th:text="${owner.nombre +' '+ owner.apellido}">Propietario</option>
-    </select>
+        <label for="owner">Propietario</label>
+        <select id="owner" th:field="*{owner.id}" required>
+          <option value="" selected>Selecciona un propietario</option>
+          <option th:each="owner : ${owners}" th:value="${owner.id}" th:text="${owner.nombre +' '+ owner.apellido}">
+            Propietario</option>
+        </select>
 
-    <input type="submit" value="Guardar"/>
+        <input type="submit" value="Guardar" />
 
-  </form>
+      </form>
 
-  <!-- Botón de vuelta a la lista de Coches -->
-  <a href="#" th:href="@{/coches}" class="back-btn">Volver a la lista de coches</a>
-</div>
+      <!-- Botón de vuelta a la lista de Coches -->
+      <a href="#" th:href="@{/coches}" class="back-btn">Volver a la lista de coches</a>
+    </div>
+  </div>
 
 </body>
+
 </html>

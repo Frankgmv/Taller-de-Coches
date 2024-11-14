@@ -1,107 +1,162 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Formulario de Dueño</title>
-  <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
+    <meta charset="UTF-8">
+    <title>Formulario de Dueño</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
-    .container {
-        width: 50%;
-        margin: 50px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+        /* Estilos para la barra de navegación */
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            padding: 10px;
+        }
 
-    h1 {
-        text-align: center;
-        color: #333;
-    }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
 
-    label {
-        display: block;
-        margin-top: 10px;
-        font-weight: bold;
-    }
+        .navbar a:hover {
+            background-color: #45a049;
+            color: white;
+        }
 
-    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], textarea {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
+        /* Para el diseño responsive en dispositivos pequeños */
+        @media screen and (max-width: 600px) {
+            .navbar a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
 
-    input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-    }
+        /* Agregar margen superior */
+        .content {
+            margin-top: 20px;
+        }
 
-    input[type="submit"]:hover {
-        background-color: #45a049;
-    }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    .back-btn {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        background-color: #ccc;
-        color: black;
-        text-decoration: none;
-        border-radius: 5px;
-    }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
 
-    .back-btn:hover {
-        background-color: #bbb;
-    }
-  </style>
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ccc;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-btn:hover {
+            background-color: #bbb;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Barra de Navegación -->
+    <div class="navbar">
+        <a href="/owners" th:text="'Propietarios'">Propietarios</a>
+        <a href="/coches" th:text="'Coches'">Coches</a>
+        <a href="/detalles" th:text="'Detalles de Mantenimiento'">Detalles de Mantenimiento</a>
+        <a href="/repuestos" th:text="'Repuestos'">Repuestos</a>
+        <a href="/facturas" th:text="'Facturas'">Facturas</a>
+    </div>
 
-<div class="container">
-  <h1 th:text="${owner.id == null ? 'Crear Dueño' : 'Editar Dueño'}"></h1>
+    <!-- Contenido principal de la página -->
+    <div class="content">
 
-  <form th:action="@{/owners/save}" th:object="${owner}" method="post">
-    <!-- Campo de ID oculto para edición -->
-    <input type="hidden" th:field="*{id}"/>
+        <div class="container">
+            <h1 th:text="${owner.id == null ? 'Crear Dueño' : 'Editar Dueño'}"></h1>
 
-    <label for="identidad">Identidad</label>
-    <input type="text" id="identidad" th:field="*{identidad}" required/>
+            <form th:action="@{/owners/save}" th:object="${owner}" method="post">
+                <!-- Campo de ID oculto para edición -->
+                <input type="hidden" th:field="*{id}" />
 
-    <label for="nombre">Nombre</label>
-    <input type="text" id="nombre" th:field="*{nombre}" required/>
+                <label for="identidad">Identidad</label>
+                <input type="text" id="identidad" th:field="*{identidad}" required />
 
-    <label for="apellido">Apellido</label>
-    <input type="text" id="apellido" th:field="*{apellido}" required/>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required />
 
-    <label for="correo">Correo</label>
-    <input type="email" id="correo" th:field="*{correo}" required/>
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" th:field="*{apellido}" required />
 
-    <label for="telefono">Teléfono</label>
-    <input type="tel" id="telefono" th:field="*{telefono}" required/>
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" th:field="*{correo}" required />
 
-    <label for="direccion">Dirección</label>
-    <textarea id="direccion" th:field="*{direccion}" rows="3" required></textarea>
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" th:field="*{telefono}" required />
 
-    <input type="submit" value="Guardar"/>
+                <label for="direccion">Dirección</label>
+                <textarea id="direccion" th:field="*{direccion}" rows="3" required></textarea>
 
-  </form>
+                <input type="submit" value="Guardar" />
 
-  <a href="#" th:href="@{/owners}" class="back-btn">Volver a la lista de dueños</a>
-</div>
+            </form>
+
+            <a href="#" th:href="@{/owners}" class="back-btn">Volver a la lista de dueños</a>
+        </div>
+    </div>
 
 </body>
+
 </html>

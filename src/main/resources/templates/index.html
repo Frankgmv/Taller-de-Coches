@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Inicio - Taller de Coches</title>
@@ -10,6 +11,43 @@
             text-align: center;
             margin: 0;
             padding: 0;
+        }
+
+
+        /* Estilos para la barra de navegación */
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            background-color: #45a049;
+            color: white;
+        }
+
+        /* Para el diseño responsive en dispositivos pequeños */
+        @media screen and (max-width: 600px) {
+            .navbar a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+
+        /* Agregar margen superior */
+        .content {
+            margin-top: 20px;
         }
 
         .container {
@@ -44,13 +82,27 @@
         }
     </style>
 </head>
-<body>
 
-<div class="container">
-    <h1>Bienvenido al Taller de Coches</h1>
-    <p>Haz clic en el siguiente enlace para ver la lista de dueños registrados:</p>
-    <a th:href="@{/owners}" class="btn">Ver Dueños</a>
-</div>
+<body>
+    <!-- Barra de Navegación -->
+    <div class="navbar">
+        <a href="/owners" th:text="'Propietarios'">Propietarios</a>
+        <a href="/coches" th:text="'Coches'">Coches</a>
+        <a href="/detalles" th:text="'Detalles de Mantenimiento'">Detalles de Mantenimiento</a>
+        <a href="/repuestos" th:text="'Repuestos'">Repuestos</a>
+        <a href="/facturas" th:text="'Facturas'">Facturas</a>
+    </div>
+
+    <!-- Contenido principal de la página -->
+    <div class="content">
+
+        <div class="container">
+            <h1>Bienvenido al Taller de Coches</h1>
+            <p>Haz clic en el siguiente enlace para ver la lista de dueños registrados:</p>
+            <a th:href="@{/owners}" class="btn">Ver Dueños</a>
+        </div>
+    </div>
 
 </body>
+
 </html>
