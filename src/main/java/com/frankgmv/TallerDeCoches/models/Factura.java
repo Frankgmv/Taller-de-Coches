@@ -24,6 +24,4 @@ public class Factura {
     @ManyToOne
     @JoinColumn(name = "id_coche")
     private Coche coche;
-
-    //
 }

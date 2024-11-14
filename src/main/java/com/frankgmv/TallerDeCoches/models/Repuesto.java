@@ -25,3 +25,4 @@ public class Repuesto {
     @JoinColumn(name = "coche_id")
     private Coche coche;
 }
+
