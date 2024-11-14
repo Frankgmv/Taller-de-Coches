@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Dueños</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .new {
+            background: #41b949;
+            border: 1px solid black;
+            color: white;
+            padding: 10px 20px;
+            border-radius:12px;
+            text-decoration: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Lista de Dueños</h1>
+    <a class="new" href="./owners/create">Crear nuevo</a>
+
+    <!-- Mostrar la tabla solo si hay dueños -->
+    <div th:if="${owners != null && !owners.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <th>Identidad</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Coches</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Iteración sobre la lista de owners -->
+            <tr th:each="owner : ${owners}">
+                <td th:text="${owner.identidad}">Identidad</td>
+                <td th:text="${owner.nombre}">Nombre</td>
+                <td th:text="${owner.apellido}">Apellido</td>
+                <td th:text="${owner.correo}">Correo</td>
+                <td th:text="${owner.telefono}">Teléfono</td>
+                <td th:text="${owner.direccion}">Dirección</td>
+                <td>
+                    <div style="display: flex; flex-wrap: wrap;gap:3px;">
+                        <small th:each="coche : ${owner.coches}" th:text="${'|'+coche.marca + '| '}">Coche</small>
+                    </div>
+                </td>
+                <td class="actions">
+                    <!-- Botones de acción -->
+                    <a th:href="@{/owners/edit/{id}(id=${owner.id})}" class="btn">Editar</a>
+                    <a th:href="@{/owners/delete/{id}(id=${owner.id})}" onclick="return confirm('Deseas eliminarlo?')"  class="btn" style="background-color: red;">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mensaje si no hay dueños -->
+    <div th:if="${owners == null || owners.isEmpty()}">
+        <p>No hay dueños registrados.</p>
+    </div>
+</div>
+</body>
+</html>

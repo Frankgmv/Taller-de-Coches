@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Dueño</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        width: 50%;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #ccc;
+        color: black;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .back-btn:hover {
+        background-color: #bbb;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1 th:text="${owner.id == null ? 'Crear Dueño' : 'Editar Dueño'}"></h1>
+
+  <form th:action="@{/owners/save}" th:object="${owner}" method="post">
+    <!-- Campo de ID oculto para edición -->
+    <input type="hidden" th:field="*{id}"/>
+
+    <label for="identidad">Identidad</label>
+    <input type="text" id="identidad" th:field="*{identidad}" required/>
+
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" th:field="*{nombre}" required/>
+
+    <label for="apellido">Apellido</label>
+    <input type="text" id="apellido" th:field="*{apellido}" required/>
+
+    <label for="correo">Correo</label>
+    <input type="email" id="correo" th:field="*{correo}" required/>
+
+    <label for="telefono">Teléfono</label>
+    <input type="tel" id="telefono" th:field="*{telefono}" required/>
+
+    <label for="direccion">Dirección</label>
+    <textarea id="direccion" th:field="*{direccion}" rows="3" required></textarea>
+
+    <input type="submit" value="Guardar"/>
+
+  </form>
+
+  <a href="#" th:href="@{/owners}" class="back-btn">Volver a la lista de dueños</a>
+</div>
+
+</body>
+</html>

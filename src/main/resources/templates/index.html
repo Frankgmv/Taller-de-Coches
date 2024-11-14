@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Main Page</title>
+    <title>Inicio - Taller de Coches</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 50px;
+            background-color: #fff;
+            margin-top: 100px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 32px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Main Page</h1>
+
+<div class="container">
+    <h1>Bienvenido al Taller de Coches</h1>
+    <p>Haz clic en el siguiente enlace para ver la lista de dueños registrados:</p>
+    <a th:href="@{/owners}" class="btn">Ver Dueños</a>
+</div>
+
 </body>
 </html>

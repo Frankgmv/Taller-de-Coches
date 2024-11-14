@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Coches</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .new {
+            background: #41b949;
+            border: 1px solid black;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn-danger {
+            background-color: red;
+        }
+
+        .btn-danger:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Listado de Coches</h1>
+
+    <a class="new" href="/coches/create">Crear Nuevo Coche</a>
+
+    <!-- Mostrar la tabla solo si hay coches -->
+    <div th:if="${coches != null && !coches.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Marca</th>
+                <th>Descripción</th>
+                <th>Fecha de Entrada</th>
+                <th>Estado</th>
+                <th>Propietario</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Iteración sobre la lista de coches -->
+            <tr th:each="coche : ${coches}">
+                <td th:text="${coche.matricula}">Matrícula</td>
+                <td th:text="${coche.marca}">Marca</td>
+                <td th:text="${coche.descripcion}">Descripción</td>
+                <td th:text="${#dates.format(coche.fechaEntrada, 'yyyy-MM-dd')}">Fecha de Entrada</td>
+                <td th:text="${coche.estado}">Estado</td>
+                <td th:if="coche.owner.nombre != null" th:text="${coche.owner.nombre}">Propietario</td>
+                <td class="actions">
+                    <!-- Botones de acción -->
+                    <a th:href="@{/coches/edit/{id}(id=${coche.id})}" class="btn">Editar</a>
+                    <a href="#" class="btn btn-danger" th:href="@{/coches/delete/{id}(id=${coche.id})}" onclick="return confirm('Deseas eliminarlo?')">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mensaje si no hay coches -->
+    <div th:if="${coches == null || coches.isEmpty()}">
+        <p>No hay coches registrados.</p>
+    </div>
+</div>
+
+</body>
+</html>

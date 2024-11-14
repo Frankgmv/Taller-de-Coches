@@ -19,6 +19,8 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date fechaSalida;
+
+    @Enumerated(EnumType.STRING)
     private EstadoFinal estadoFinal;
 
     @ManyToOne

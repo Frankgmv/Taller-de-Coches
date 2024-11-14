@@ -3,6 +3,7 @@ package com.frankgmv.TallerDeCoches.models;
 import com.frankgmv.TallerDeCoches.interfaces.Estado;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -17,8 +18,13 @@ public class Coche {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String matricula;
+    private String marca;
     private String descripcion;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaEntrada;
+
+    @Enumerated(EnumType.STRING)
     private Estado estado;
 
     @ManyToOne
