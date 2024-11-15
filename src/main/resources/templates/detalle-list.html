@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Listado de Coches</title>
+    <title>Listado de Detalles de Mantenimiento</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,7 +48,6 @@
         .content {
             margin-top: 20px;
         }
-
         .container {
             width: 80%;
             margin: 50px auto;
@@ -125,6 +124,7 @@
 </head>
 
 <body>
+
     <!-- Barra de Navegación -->
      <div class="navbar">
         <a href="/" th:text="'Página Principal'">Página Principal</a>
@@ -139,47 +139,42 @@
     <!-- Contenido principal de la página -->
     <div class="content">
         <div class="container">
-            <h1>Listado de Coches</h1>
+            <h1>Listado de Detalles de Mantenimiento</h1>
 
-            <a class="new" href="/coches/create">Crear Nuevo Coche</a>
+            <a class="new" href="/detalles/create">Crear Nuevo Detalle</a>
 
-            <!-- Mostrar la tabla solo si hay coches -->
-            <div th:if="${coches != null && !coches.isEmpty()}">
+            <!-- Mostrar la tabla solo si hay detalles -->
+            <div th:if="${detalles != null && !detalles.isEmpty()}">
                 <table>
                     <thead>
                         <tr>
-                            <th>Matrícula</th>
-                            <th>Marca</th>
-                            <th>Descripción</th>
-                            <th>Fecha de Entrada</th>
-                            <th>Estado</th>
-                            <th>Propietario</th>
+                            <th>Proceso</th>
+                            <th>Tiempo</th>
+                            <th>Valor</th>
+                            <th>Coche</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Iteración sobre la lista de coches -->
-                        <tr th:each="coche : ${coches}">
-                            <td th:text="${coche.matricula}">Matrícula</td>
-                            <td th:text="${coche.marca}">Marca</td>
-                            <td th:text="${coche.descripcion}">Descripción</td>
-                            <td th:text="${#dates.format(coche.fechaEntrada, 'yyyy-MM-dd')}">Fecha de Entrada</td>
-                            <td th:text="${coche.estado}">Estado</td>
-                            <td th:if="coche.owner.nombre != null" th:text="${coche.owner.nombre}">Propietario</td>
+                        <!-- Iteración sobre la lista de detalles de mantenimiento -->
+                        <tr th:each="detalle : ${detalles}">
+                            <td th:text="${detalle.proceso}">Proceso</td>
+                            <td th:text="${detalle.tiempo}">Tiempo</td>
+                            <td th:text="${detalle.valor}">Valor</td>
+                            <td th:text="${detalle.coche.matricula}">Coche</td>
                             <td class="actions">
-                                <!-- Botones de acción -->
-                                <a th:href="@{/coches/edit/{id}(id=${coche.id})}" class="btn">Editar</a>
-                                <a href="#" class="btn btn-danger" th:href="@{/coches/delete/{id}(id=${coche.id})}"
-                                    onclick="return confirm('Deseas eliminarlo?')">Eliminar</a>
+                                <a th:href="@{/detalles/edit/{id}(id=${detalle.id})}" class="btn">Editar</a>
+                                <a href="#" class="btn btn-danger" th:href="@{/detalles/delete/{id}(id=${detalle.id})}"
+                                    onclick="return confirm('Deseas eliminar este detalle?')">Eliminar</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Mensaje si no hay coches -->
-            <div th:if="${coches == null || coches.isEmpty()}">
-                <p>No hay coches registrados.</p>
+            <!-- Mensaje si no hay detalles -->
+            <div th:if="${detalles == null || detalles.isEmpty()}">
+                <p>No hay detalles de mantenimiento registrados.</p>
             </div>
         </div>
     </div>

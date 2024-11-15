@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <title>Formulario de Dueño</title>
+    <title>Repuestos</title>
     <style>
+        /* Estilos similares a los del formulario de coches */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
+
 
         /* Estilos para la barra de navegación */
         .navbar {
@@ -49,11 +51,11 @@
         }
 
         .container {
-            width: 50%;
+            width: 60%;
             margin: 50px auto;
             background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -69,15 +71,22 @@
         }
 
         input[type="text"],
-        input[type="email"],
-        input[type="tel"],
         input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
         textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            height: 100px;
         }
 
         input[type="submit"] {
@@ -125,37 +134,34 @@
 
     <!-- Contenido principal de la página -->
     <div class="content">
-
         <div class="container">
-            <h1 th:text="${owner.id == null ? 'Crear Dueño' : 'Editar Dueño'}"></h1>
+            <h1 th:text="${repuesto.id == null ? 'Crear Repuesto' : 'Editar Repuesto'}"></h1>
 
-            <form th:action="@{/owners/save}" th:object="${owner}" method="post">
-                <!-- Campo de ID oculto para edición -->
+            <form th:action="@{/repuestos/save}" th:object="${repuesto}" method="POST">
                 <input type="hidden" th:field="*{id}" />
-
-                <label for="identidad">Identidad</label>
-                <input type="text" id="identidad" th:field="*{identidad}" required />
 
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" th:field="*{nombre}" required />
 
-                <label for="apellido">Apellido</label>
-                <input type="text" id="apellido" th:field="*{apellido}" required />
+                <label for="codigo">Código</label>
+                <input type="text" id="codigo" th:field="*{codigo}" required />
 
-                <label for="correo">Correo</label>
-                <input type="email" id="correo" th:field="*{correo}" required />
+                <label for="precio">Precio</label>
+                <input type="number" id="precio" th:field="*{precio}" required />
 
-                <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" th:field="*{telefono}" required />
+                <label for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" th:field="*{cantidad}" required />
 
-                <label for="direccion">Dirección</label>
-                <textarea id="direccion" th:field="*{direccion}" rows="3" required></textarea>
-
+                <label for="coche">Coche</label>
+                <select id="coche" th:field="*{coche.id}" required>
+                    <option value="" selected>Selecciona un coche</option>
+                    <option th:each="coche : ${coches}" th:value="${coche.id}"
+                        th:text="${coche.marca + ' | ' + coche.matricula}"></option>
+                </select>
                 <input type="submit" value="Guardar" />
-
             </form>
 
-            <a href="#" th:href="@{/owners}" class="back-btn">Volver a la lista de dueños</a>
+            <a href="#" th:href="@{/repuestos}" class="back-btn">Volver al listado de repuestos</a>
         </div>
     </div>
 

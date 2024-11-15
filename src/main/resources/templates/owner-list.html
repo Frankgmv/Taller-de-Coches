@@ -119,6 +119,7 @@
 <body>
     <!-- Barra de Navegación -->
     <div class="navbar">
+        <a href="/" th:text="'Página Principal'">Página Principal</a>
         <a href="/owners" th:text="'Propietarios'">Propietarios</a>
         <a href="/coches" th:text="'Coches'">Coches</a>
         <a href="/detalles" th:text="'Detalles de Mantenimiento'">Detalles de Mantenimiento</a>
@@ -159,7 +160,7 @@
                             <td>
                                 <div style="display: flex; flex-wrap: wrap;gap:3px;">
                                     <small th:each="coche : ${owner.coches}"
-                                        th:text="${'|'+coche.marca + '| '}">Coche</small>
+                                        th:text="${'➡️|'+coche.marca + ' '+ coche.matricula + '| '}">Coche</small>
                                 </div>
                             </td>
                             <td class="actions">

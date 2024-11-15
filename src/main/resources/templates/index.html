@@ -13,7 +13,6 @@
             padding: 0;
         }
 
-
         /* Estilos para la barra de navegación */
         .navbar {
             background-color: #4CAF50;
@@ -36,7 +35,7 @@
             color: white;
         }
 
-        /* Para el diseño responsive en dispositivos pequeños */
+        /* Diseño responsive en dispositivos pequeños */
         @media screen and (max-width: 600px) {
             .navbar a {
                 float: none;
@@ -45,64 +44,178 @@
             }
         }
 
-        /* Agregar margen superior */
+        /* Contenido principal */
         .content {
             margin-top: 20px;
+            padding: 50px 20px;
+            background: linear-gradient(to bottom, #ffffff, #eaf2f1);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
-            padding: 50px;
             background-color: #fff;
-            margin-top: 100px;
+            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 60%;
-            margin-left: auto;
-            margin-right: auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
+            font-size: 36px;
             color: #333;
-            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 15px 30px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .btn:hover {
             background-color: #45a049;
+            transform: scale(1.05);
         }
+
+        .feature-list {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+        }
+
+        .feature {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 50px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer {
+            margin-top: 50px;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .flex-context{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content:center ;
+            gap: 10px;
+        }
+
     </style>
 </head>
 
 <body>
     <!-- Barra de Navegación -->
     <div class="navbar">
+        <a href="/" th:text="'Página Principal'">Página Principal</a>
         <a href="/owners" th:text="'Propietarios'">Propietarios</a>
         <a href="/coches" th:text="'Coches'">Coches</a>
-        <a href="/detalles" th:text="'Detalles de Mantenimiento'">Detalles de Mantenimiento</a>
+        <a href="/detalles" th:text="'Detalles de Mantenimiento'">Servicios</a>
         <a href="/repuestos" th:text="'Repuestos'">Repuestos</a>
         <a href="/facturas" th:text="'Facturas'">Facturas</a>
     </div>
 
     <!-- Contenido principal de la página -->
     <div class="content">
-
         <div class="container">
             <h1>Bienvenido al Taller de Coches</h1>
-            <p>Haz clic en el siguiente enlace para ver la lista de dueños registrados:</p>
-            <a th:href="@{/owners}" class="btn">Ver Dueños</a>
+            <p>Administra las visitas de tu taller de coches de manera fácil y rápida.</p>
+            <div class="flex-context">
+                <a href="/owners" class="btn">Ver Dueños</a>
+                <a href="/coches" class="btn">Ver Coches</a>
+                <a href="/repuestos" class="btn">Ver Repuestos</a>
+                <a href="/detalles" class="btn">Ver Servicios</a>
+                <a href="/facturas" class="btn">Ver Facturas</a>
+            </div>
+
+            <div class="feature-list">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Gestión de Propietarios</h3>
+                    <p>Agrega, edita y elimina propietarios de vehículos registrados.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Gestión de Coches</h3>
+                    <p>Administra la flota de coches en tu taller, con detalles completos.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Detalles de Mantenimiento</h3>
+                    <p>Realiza un seguimiento de los servicios de mantenimiento realizados.</p>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Pie de página -->
+    <div class="footer">
+        <p>&copy; 2024 Taller de Coches - Todos los derechos reservados.</p>
+    </div>
+
+    <!-- Agregar FontAwesome para los íconos -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
 
 </html>
